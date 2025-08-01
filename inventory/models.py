@@ -24,6 +24,8 @@ class Component(models.Model):
         ('mouse', 'Mouse'),
         # You can add more types here
     ]
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='components', null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='components', null=True, blank=True)
     component_type = models.CharField(max_length=20, choices=COMPONENT_TYPES)
     serial_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
     status = models.CharField(max_length=50, default="Working", blank=True, null=True)  # e.g., Working, Faulty

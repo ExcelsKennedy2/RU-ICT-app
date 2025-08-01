@@ -12,7 +12,7 @@ def department_detail(request, pk):
 
     # Unassigned components: No user, but still relevant to department
     # This assumes components must be related through users
-    unassigned_components = Component.objects.filter(user__isnull=True)
+    unassigned_components = Component.objects.filter(user__isnull=True, department=department)
 
     context = {
         'department': department,
@@ -147,7 +147,7 @@ def edit_printer(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, "Printer updated successfully.")
-            return redirect('inventory:department_detail', pk=printer.user.department.pk if printer.user else 1)
+            return redirect('inventory:department_detail', pk=printer.department.pk)
     else:
         form = PrinterForm(instance=printer)
     return render(request, 'inventory/edit_printer.html', {'form': form})
@@ -155,7 +155,7 @@ def edit_printer(request, pk):
 def delete_printer(request, pk):
     printer = get_object_or_404(Printer, pk=pk)
     if request.method == 'POST':
-        department_pk = printer.user.department.pk if printer.user else 1
+        department_pk = printer.department.pk
         printer.delete()
         messages.success(request, "Printer deleted successfully.")
         return redirect('inventory:department_detail', pk=department_pk)

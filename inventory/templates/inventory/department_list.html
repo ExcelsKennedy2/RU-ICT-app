@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Departments</title>
+</head>
+<body>
+    <h1>Departments</h1>
+    <a href="{% url 'inventory:add_department' %}">Add New Department</a><br>
+    <a href="{% url 'inventory:add_user' %}">Add New User</a>
+    <a href="{% url 'inventory:add_component' %}">Add Component</a><br>
+    <a href="{% url 'inventory:add_printer' %}">Add Printer</a>
+
+
+    <ul>
+        {% for dept in departments %}
+            <li><a href="{% url 'inventory:department_detail' dept.pk %}">{{ dept.name }}</a></li>
+        {% empty %}
+            <li>No departments found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

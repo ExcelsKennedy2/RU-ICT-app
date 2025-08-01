@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ department.name }}</title>
+</head>
+<body>
+    <h1>{{ department.name }}</h1>
+    <p><strong>HOD:</strong> {{ department.hod_or_authorized_officer }}</p>
+    <p><strong>Date Reported:</strong> {{ department.date_reported }}</p>
+    <a href="{% url 'inventory:edit_department' department.pk %}">Edit</a> |
+    <a href="{% url 'inventory:delete_department' department.pk %}">Delete</a>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+
+    <h2>Users & Components</h2>
+    {% for user in users %}
+    <h3>{{ user.name }}</h3>
+    <a href="{% url 'inventory:edit_user' user.pk %}">Edit</a> |
+    <a href="{% url 'inventory:delete_user' user.pk %}">Delete</a>
+    <ul>
+        {% for component in user.components.all %}
+            <li>
+                {{ component.component_type }} - SN: {{ component.serial_number }} ({{ component.status }})
+                {% if component.pk %}
+                    | <a href="{% url 'inventory:edit_component' component.pk %}">Edit</a>
+                    | <a href="{% url 'inventory:delete_component' component.pk %}">Delete</a>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No components.</li>
+        {% endfor %}
+    </ul>
+    {% empty %}
+        <p>No users found.</p>
+    {% endfor %}
+
+    
+
+
+    <h2>Unassigned Components</h2>
+    {% if unassigned_components %}
+        <ul>
+            {% for component in unassigned_components %}
+                <li>
+                    {{ component.component_type }} - SN: {{ component.serial_number }} ({{ component.status }})
+                    {% if component.pk %}
+                        | <a href="{% url 'inventory:edit_component' component.pk %}">Edit</a>
+                        | <a href="{% url 'inventory:delete_component' component.pk %}">Delete</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No unassigned components.</p>
+    {% endif %}
+
+
+
+    <h2>Printers</h2>
+    <ul>
+    {% for printer in printers %}
+        <li>
+            {{ printer.model }} - SN: {{ printer.serial_number }} ({{ printer.status }})
+            {% if printer.pk %}
+                | <a href="{% url 'inventory:edit_printer' printer.pk %}">Edit</a>
+                | <a href="{% url 'inventory:delete_printer' printer.pk %}">Delete</a>
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>No printers found.</li>
+    {% endfor %}
+    </ul>
+
+
+
+    <a href="{% url 'inventory:department_list' %}">← Back to list</a>
+    
+
+</body>
+</html>

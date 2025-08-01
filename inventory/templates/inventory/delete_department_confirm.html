@@ -1,0 +1,8 @@
+<h2>Delete Department</h2>
+<p>Are you sure you want to delete the department "{{ department.name }}"?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'inventory:department_detail' department.pk %}">Cancel</a>
+</form>

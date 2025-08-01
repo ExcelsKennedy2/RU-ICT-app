@@ -1,3 +1,7 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% block title %}Delete User{% endblock %}
+{% block content %}
 <h2>Delete User</h2>
 <p>Are you sure you want to delete "{{ user.name }}"?</p>
 
@@ -6,3 +10,4 @@
     <button type="submit">Yes, delete</button>
     <a href="{% url 'inventory:department_detail' user.department.pk %}">Cancel</a>
 </form>
+{% endblock %}

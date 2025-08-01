@@ -1,6 +1,11 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% block title %}Edit Component{% endblock %}
+{% block content %}
 <h2>Edit Component</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Save changes</button>
 </form>
+{% endblock %}

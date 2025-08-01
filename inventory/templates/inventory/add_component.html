@@ -1,3 +1,7 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% block title %}Add Component{% endblock %}
+{% block content %}
 <h1>Add Component</h1>
 <form method="post">
     {% csrf_token %}
@@ -5,3 +9,4 @@
     <button type="submit">Save</button>
 </form>
 <a href="{% url 'inventory:department_list' %}">← Back</a>
+{% endblock %}

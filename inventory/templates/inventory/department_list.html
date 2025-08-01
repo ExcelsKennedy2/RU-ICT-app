@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Departments</title>
-</head>
-<body>
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% block title %}Department List{% endblock %}
+{% block content %}
     <h1>Departments</h1>
     <a href="{% url 'inventory:add_department' %}">Add New Department</a><br>
     <a href="{% url 'inventory:add_user' %}">Add New User</a>
@@ -20,3 +18,4 @@
     </ul>
 </body>
 </html>
+{% endblock %}

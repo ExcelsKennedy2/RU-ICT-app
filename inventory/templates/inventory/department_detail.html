@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ department.name }}</title>
-</head>
-<body>
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% block title %}{{ department.name }}{% endblock %}
+{% block content %}
     <h1>{{ department.name }}</h1>
     <p><strong>HOD:</strong> {{ department.hod_or_authorized_officer }}</p>
     <p><strong>Date Reported:</strong> {{ department.date_reported }}</p>
     <a href="{% url 'inventory:edit_department' department.pk %}">Edit</a> |
     <a href="{% url 'inventory:delete_department' department.pk %}">Delete</a>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+    
 
 
 
@@ -81,7 +73,4 @@
 
 
     <a href="{% url 'inventory:department_list' %}">← Back to list</a>
-    
-
-</body>
-</html>
+{% endblock %}

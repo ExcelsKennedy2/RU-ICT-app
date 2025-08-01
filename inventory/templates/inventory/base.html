@@ -1,0 +1,22 @@
+{% load static %}
+{% load pwa %}
+{% progressive_web_app_meta %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>{% block title %}{% endblock %} - RU ICT</title>
+
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+
+  <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
+
+</head>
+<body>
+    {% block content %}{% endblock %}
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

@@ -31,12 +31,12 @@
 </div>
     
     
-<div>
-    <ul>
+<div class="container mt-3">
+    <ul class="list-group mb-5">
         {% for dept in departments %}
-            <li><a href="{% url 'inventory:department_detail' dept.pk %}">{{ dept.name }}</a></li>
+            <li class="list-group-item mb-3 shadow"><a class="text-decoration-none text-dark" href="{% url 'inventory:department_detail' dept.pk %}">{{ dept.name }}</a></li>
         {% empty %}
-            <li>No departments found.</li>
+            <p class="text-muted">No departments found.</li>
         {% endfor %}
     </ul>
 </div>

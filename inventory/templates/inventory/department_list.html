@@ -2,13 +2,36 @@
 {% load static %}
 {% block title %}Department List{% endblock %}
 {% block content %}
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="javascript:void(0)"><h1>ICT</h1></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'inventory:add_department' %}">Add New Department</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'inventory:add_user' %}">Add New User</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'inventory:add_component' %}">Add Component</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'inventory:add_printer' %}">Add Printer</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="p-3 bg-dark text-white text-center">
     <h1>Departments</h1>
-    <a href="{% url 'inventory:add_department' %}">Add New Department</a><br>
-    <a href="{% url 'inventory:add_user' %}">Add New User</a>
-    <a href="{% url 'inventory:add_component' %}">Add Component</a><br>
-    <a href="{% url 'inventory:add_printer' %}">Add Printer</a>
-
-
+</div>
+    
+    
+<div>
     <ul>
         {% for dept in departments %}
             <li><a href="{% url 'inventory:department_detail' dept.pk %}">{{ dept.name }}</a></li>
@@ -16,6 +39,8 @@
             <li>No departments found.</li>
         {% endfor %}
     </ul>
+</div>
+    
 </body>
 </html>
 {% endblock %}

@@ -2,36 +2,55 @@
 {% load static %}
 {% block title %}{{ department.name }}{% endblock %}
 {% block content %}
-    <h1>{{ department.name }}</h1>
+<div class="bg-dark p-3 text-white mb-5">
+    <h1 class="text-center mb-3">{{ department.name }}</h1>
     <p><strong>HOD:</strong> {{ department.hod_or_authorized_officer }}</p>
     <p><strong>Date Reported:</strong> {{ department.date_reported }}</p>
-    <a href="{% url 'inventory:edit_department' department.pk %}">Edit</a> |
-    <a href="{% url 'inventory:delete_department' department.pk %}">Delete</a>
-    
+    <a class="btn btn-primary" href="{% url 'inventory:edit_department' department.pk %}">Edit</a> |
+    <a class="btn btn-danger" href="{% url 'inventory:delete_department' department.pk %}">Delete</a>
+</div>
 
+<h2 class="text-center">Users & Components</h2>
 
-
-    <h2>Users & Components</h2>
+ <div class="container shadow table-responsive">
     {% for user in users %}
-    <h3>{{ user.name }}</h3>
-    <a href="{% url 'inventory:edit_user' user.pk %}">Edit</a> |
-    <a href="{% url 'inventory:delete_user' user.pk %}">Delete</a>
-    <ul>
-        {% for component in user.components.all %}
-            <li>
-                {{ component.component_type }} - SN: {{ component.serial_number }} ({{ component.status }})
-                {% if component.pk %}
-                    | <a href="{% url 'inventory:edit_component' component.pk %}">Edit</a>
-                    | <a href="{% url 'inventory:delete_component' component.pk %}">Delete</a>
-                {% endif %}
-            </li>
-        {% empty %}
-            <li>No components.</li>
-        {% endfor %}
-    </ul>
+        <div class="mb-4 pb-3 border-bottom">
+            <h4>{{ user.name }}</h4>
+            <a class="btn btn-sm btn-primary" href="{% url 'inventory:edit_user' user.pk %}">Edit</a>
+            <a class="btn btn-sm btn-danger" href="{% url 'inventory:delete_user' user.pk %}">Delete</a>
+
+            {% if user.components.all %}
+                <table class="table table-bordered table-striped mt-3">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Component</th>
+                            <th>Serial No.</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for component in user.components.all %}
+                            <tr>
+                                <td>{{ component.component_type }}</td>
+                                <td>{{ component.serial_number }}</td>
+                                <td>{{ component.status }}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary" href="{% url 'inventory:edit_component' component.pk %}">Edit</a>
+                                    <a class="btn btn-sm btn-danger" href="{% url 'inventory:delete_component' component.pk %}">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="text-muted">No components assigned to this user.</p>
+            {% endif %}
+        </div>
     {% empty %}
         <p>No users found.</p>
     {% endfor %}
+</div>
 
     
 

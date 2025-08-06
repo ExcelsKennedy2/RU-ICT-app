@@ -20,7 +20,7 @@
             <a class="btn btn-sm btn-danger" href="{% url 'inventory:delete_user' user.pk %}">Delete</a>
 
             {% if user.components.all %}
-                <table class="table table-bordered table-striped mt-3">
+                <table class="table table-sm table-bordered table-striped mt-3">
                     <thead class="table-dark">
                         <tr>
                             <th>Component</th>
@@ -36,7 +36,7 @@
                                 <td>{{ component.serial_number }}</td>
                                 <td>{{ component.status }}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-primary" href="{% url 'inventory:edit_component' component.pk %}">Edit</a>
+                                    <a class="btn btn-sm btn-primary my-3" href="{% url 'inventory:edit_component' component.pk %}">Edit</a>
                                     <a class="btn btn-sm btn-danger" href="{% url 'inventory:delete_component' component.pk %}">Delete</a>
                                 </td>
                             </tr>
@@ -53,24 +53,41 @@
 </div>
 
     
+<h2 class="text-center mt-5">Unassigned Components</h2>
+    <div class="container shadow table-responsive">
+    <table class="table table-sm table-bordered table-striped mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>Component</th>
+                <th>Serial No.</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if unassigned_components %}
+                {% for component in unassigned_components %}
+                    <tr>
+                        <td>{{ component.component_type }}</td>
+                        <td>{{ component.serial_number }}</td>
+                        <td>{{ component.status }}</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary my-1" href="{% url 'inventory:edit_component' component.pk %}">Edit</a>
+                            <a class="btn btn-sm btn-danger" href="{% url 'inventory:delete_component' component.pk %}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">No unassigned components.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
 
 
-    <h2>Unassigned Components</h2>
-    {% if unassigned_components %}
-        <ul>
-            {% for component in unassigned_components %}
-                <li>
-                    {{ component.component_type }} - SN: {{ component.serial_number }} ({{ component.status }})
-                    {% if component.pk %}
-                        | <a href="{% url 'inventory:edit_component' component.pk %}">Edit</a>
-                        | <a href="{% url 'inventory:delete_component' component.pk %}">Delete</a>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No unassigned components.</p>
-    {% endif %}
+    
 
 
 
